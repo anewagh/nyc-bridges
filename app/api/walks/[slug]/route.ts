@@ -39,12 +39,25 @@ export async function PUT(
     const body = await request.json();
 
     const existing = await getWalkDataFromBlob(slug);
+    const rawPhotos: string[] = body.photos ?? existing?.photos ?? [];
+
+    // Normalize photos: strip proxy prefix so only raw blob URLs are stored
+    const cleanPhotos = rawPhotos.map((p: string) => {
+      if (p.startsWith("/api/blob-image?url=")) {
+        const encoded = p.replace("/api/blob-image?url=", "");
+        const decoded = decodeURIComponent(encoded);
+        // Strip ?download=1 suffix if present
+        return decoded.replace(/\?download=1$/, "");
+      }
+      return p;
+    });
+
     const data: WalkData = {
       date: body.date || "",
       rating: Number(body.rating) || 0,
       weather: body.weather || "",
       description: body.description || "",
-      photos: body.photos ?? existing?.photos ?? [],
+      photos: cleanPhotos,
     };
 
     const saved = await saveWalkToBlob(slug, data);

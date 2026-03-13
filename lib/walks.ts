@@ -37,6 +37,14 @@ async function fetchBlob(url: string): Promise<Response> {
   });
 }
 
+function cleanPhotoUrl(url: string): string {
+  if (url.startsWith("/api/blob-image?url=")) {
+    const decoded = decodeURIComponent(url.replace("/api/blob-image?url=", ""));
+    return decoded.replace(/\?download=1$/, "");
+  }
+  return url;
+}
+
 function resolvePhotoUrls(photos: string[]): string[] {
   return photos.map((photo) => {
     if (photo.includes("blob.vercel-storage.com")) {
@@ -89,7 +97,10 @@ export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null
     const response = await fetchBlob(blobUrl);
     if (!response.ok) return null;
 
-    return response.json();
+    const data: WalkData = await response.json();
+    // Normalize any corrupted proxy URLs back to raw blob URLs
+    data.photos = (data.photos || []).map(cleanPhotoUrl);
+    return data;
   } catch {
     return null;
   }
