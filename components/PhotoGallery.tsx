@@ -15,8 +15,8 @@ function photoSrc(slug: string, photo: string): string {
   return `/photos/${slug}/${photo}`;
 }
 
-function isExternal(photo: string): boolean {
-  return photo.startsWith("http");
+function shouldSkipOptimization(photo: string): boolean {
+  return photo.startsWith("http") || photo.startsWith("/api/");
 }
 
 export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
@@ -39,7 +39,7 @@ export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
               fill
               className="object-cover"
               sizes="(max-width: 640px) 50vw, 33vw"
-              unoptimized={isExternal(photo)}
+              unoptimized={shouldSkipOptimization(photo)}
             />
           </button>
         ))}
@@ -57,7 +57,7 @@ export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
               fill
               className="object-contain"
               sizes="90vw"
-              unoptimized={isExternal(selected)}
+              unoptimized={shouldSkipOptimization(selected)}
             />
           </div>
         </div>

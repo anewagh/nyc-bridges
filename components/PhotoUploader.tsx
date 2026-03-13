@@ -68,7 +68,7 @@ export default function PhotoUploader({ slug, photos, onUploaded }: PhotoUploade
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 33vw, 25vw"
-                unoptimized={photo.startsWith("http") || photo.startsWith("/api/")}
+                unoptimized={photo.startsWith("http") || photo.includes("/api/")}
               />
             </div>
           ))}

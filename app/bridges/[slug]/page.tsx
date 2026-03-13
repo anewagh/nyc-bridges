@@ -21,10 +21,14 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
   const bridge = getBridgeBySlug(slug);
   if (!bridge) notFound();
 
-  const walk = await getWalkBySlug(slug);
-
-  // Also get raw description for edit form pre-fill
-  const blobData = await getWalkDataFromBlob(slug);
+  let walk = null;
+  let blobData = null;
+  try {
+    walk = await getWalkBySlug(slug);
+    blobData = await getWalkDataFromBlob(slug);
+  } catch {
+    // If blob fetch fails, continue with null walk data
+  }
   const walkWithDescription = walk ? {
     ...walk,
     description: blobData?.description || "",
@@ -63,14 +67,16 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
         <span>Built: {bridge.yearBuilt}</span>
         {walk && (
           <>
-            <span>
-              Walked:{" "}
-              {new Date(walk.date + "T12:00:00").toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
+            {walk.date && (
+              <span>
+                Walked:{" "}
+                {new Date(walk.date + "T12:00:00").toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
+            )}
             {walk.weather && <span>Weather: {walk.weather}</span>}
           </>
         )}
