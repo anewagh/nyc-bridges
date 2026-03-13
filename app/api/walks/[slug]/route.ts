@@ -34,19 +34,24 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = await params;
-  const body = await request.json();
+  try {
+    const { slug } = await params;
+    const body = await request.json();
 
-  // Merge with existing blob data to preserve photos
-  const existing = await getWalkDataFromBlob(slug);
-  const data: WalkData = {
-    date: body.date || "",
-    rating: Number(body.rating) || 0,
-    weather: body.weather || "",
-    description: body.description || "",
-    photos: body.photos ?? existing?.photos ?? [],
-  };
+    // Merge with existing blob data to preserve photos
+    const existing = await getWalkDataFromBlob(slug);
+    const data: WalkData = {
+      date: body.date || "",
+      rating: Number(body.rating) || 0,
+      weather: body.weather || "",
+      description: body.description || "",
+      photos: body.photos ?? existing?.photos ?? [],
+    };
 
-  const saved = await saveWalkToBlob(slug, data);
-  return NextResponse.json(saved);
+    const saved = await saveWalkToBlob(slug, data);
+    return NextResponse.json(saved);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
