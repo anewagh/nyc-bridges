@@ -26,6 +26,17 @@ export interface WalkData {
 
 // --- Blob storage helpers ---
 
+function blobToken() {
+  return process.env.BLOB_READ_WRITE_TOKEN || "";
+}
+
+async function fetchBlob(url: string): Promise<Response> {
+  return fetch(url, {
+    cache: "no-store",
+    headers: { Authorization: `Bearer ${blobToken()}` },
+  });
+}
+
 async function resolvePhotoUrls(photos: string[]): Promise<string[]> {
   return Promise.all(
     photos.map(async (photo) => {
@@ -37,17 +48,17 @@ async function resolvePhotoUrls(photos: string[]): Promise<string[]> {
           return photo;
         }
       }
-      return photo; // local filename, keep as-is
+      return photo;
     })
   );
 }
 
 export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
   try {
-    const blobUrl = await getBlobDownloadUrl(`walks/${slug}.json`);
+    const blobUrl = await findBlobUrl(`walks/${slug}.json`);
     if (!blobUrl) return null;
 
-    const response = await fetch(blobUrl, { cache: "no-store" });
+    const response = await fetchBlob(blobUrl);
     if (!response.ok) return null;
 
     const data: WalkData = await response.json();
@@ -79,10 +90,10 @@ export async function saveWalkToBlob(slug: string, data: WalkData): Promise<Walk
 
 export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null> {
   try {
-    const blobUrl = await getBlobDownloadUrl(`walks/${slug}.json`);
+    const blobUrl = await findBlobUrl(`walks/${slug}.json`);
     if (!blobUrl) return null;
 
-    const response = await fetch(blobUrl, { cache: "no-store" });
+    const response = await fetchBlob(blobUrl);
     if (!response.ok) return null;
 
     return response.json();
@@ -91,11 +102,11 @@ export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null
   }
 }
 
-async function getBlobDownloadUrl(pathname: string): Promise<string | null> {
+async function findBlobUrl(pathname: string): Promise<string | null> {
   try {
     const result = await list({ prefix: pathname, limit: 1 });
     if (result.blobs.length > 0) {
-      return result.blobs[0].downloadUrl;
+      return result.blobs[0].url;
     }
     return null;
   } catch {
