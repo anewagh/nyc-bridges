@@ -1,12 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
+import { list } from "@vercel/blob";
 import { getWalkBySlug, getWalkDataFromBlob, saveWalkToBlob } from "@/lib/walks";
 import type { WalkData } from "@/lib/walks";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
+  const debug = request.nextUrl.searchParams.get("debug") === "1";
+
+  if (debug) {
+    // List all blobs to see what's stored
+    const allBlobs = await list({});
+    const walkBlobs = await list({ prefix: `walks/${slug}` });
+    return NextResponse.json({
+      allBlobCount: allBlobs.blobs.length,
+      allBlobs: allBlobs.blobs.map((b) => ({ pathname: b.pathname, url: b.url })),
+      walkBlobs: walkBlobs.blobs.map((b) => ({ pathname: b.pathname, url: b.url, downloadUrl: b.downloadUrl })),
+    });
+  }
 
   // Try blob first
   const blobData = await getWalkDataFromBlob(slug);
@@ -20,12 +33,11 @@ export async function GET(
     return NextResponse.json(null, { status: 404 });
   }
 
-  // Convert Walk to WalkData format (strip HTML, return raw description placeholder)
   return NextResponse.json({
     date: walk.date,
     rating: walk.rating,
     weather: walk.weather,
-    description: "", // markdown content is HTML — editing replaces it
+    description: "",
     photos: walk.photos,
   } satisfies WalkData);
 }
@@ -38,7 +50,6 @@ export async function PUT(
     const { slug } = await params;
     const body = await request.json();
 
-    // Merge with existing blob data to preserve photos
     const existing = await getWalkDataFromBlob(slug);
     const data: WalkData = {
       date: body.date || "",
