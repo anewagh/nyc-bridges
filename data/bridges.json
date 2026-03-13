@@ -5,7 +5,8 @@
     "from": "Brooklyn (DUMBO)",
     "to": "Manhattan (City Hall)",
     "distance": "1.1 mi",
-    "yearBuilt": 1883
+    "yearBuilt": 1883,
+    "region": "East River"
   },
   {
     "slug": "manhattan-bridge",
@@ -13,7 +14,8 @@
     "from": "Brooklyn (DUMBO)",
     "to": "Manhattan (Chinatown)",
     "distance": "1.1 mi",
-    "yearBuilt": 1909
+    "yearBuilt": 1909,
+    "region": "East River"
   },
   {
     "slug": "williamsburg-bridge",
@@ -21,7 +23,8 @@
     "from": "Brooklyn (Williamsburg)",
     "to": "Manhattan (Lower East Side)",
     "distance": "1.2 mi",
-    "yearBuilt": 1903
+    "yearBuilt": 1903,
+    "region": "East River"
   },
   {
     "slug": "queensboro-bridge",
@@ -29,111 +32,8 @@
     "from": "Queens (Long Island City)",
     "to": "Manhattan (Midtown East)",
     "distance": "1.4 mi",
-    "yearBuilt": 1909
-  },
-  {
-    "slug": "george-washington-bridge",
-    "name": "George Washington Bridge",
-    "from": "Manhattan (Washington Heights)",
-    "to": "New Jersey (Fort Lee)",
-    "distance": "0.9 mi",
-    "yearBuilt": 1931
-  },
-  {
-    "slug": "pulaski-bridge",
-    "name": "Pulaski Bridge",
-    "from": "Brooklyn (Greenpoint)",
-    "to": "Queens (Long Island City)",
-    "distance": "0.3 mi",
-    "yearBuilt": 1954
-  },
-  {
-    "slug": "high-bridge",
-    "name": "High Bridge",
-    "from": "Manhattan (Highbridge Park)",
-    "to": "Bronx (Highbridge)",
-    "distance": "0.3 mi",
-    "yearBuilt": 1848
-  },
-  {
-    "slug": "macombs-dam-bridge",
-    "name": "Macombs Dam Bridge",
-    "from": "Manhattan (Harlem)",
-    "to": "Bronx (Yankee Stadium)",
-    "distance": "0.2 mi",
-    "yearBuilt": 1895
-  },
-  {
-    "slug": "madison-avenue-bridge",
-    "name": "Madison Avenue Bridge",
-    "from": "Manhattan (Harlem)",
-    "to": "Bronx (Mott Haven)",
-    "distance": "0.2 mi",
-    "yearBuilt": 1910
-  },
-  {
-    "slug": "145th-street-bridge",
-    "name": "145th Street Bridge",
-    "from": "Manhattan (Harlem)",
-    "to": "Bronx (Port Morris)",
-    "distance": "0.2 mi",
-    "yearBuilt": 1905
-  },
-  {
-    "slug": "willis-avenue-bridge",
-    "name": "Willis Avenue Bridge",
-    "from": "Manhattan (Harlem)",
-    "to": "Bronx (Mott Haven)",
-    "distance": "0.3 mi",
-    "yearBuilt": 2010
-  },
-  {
-    "slug": "third-avenue-bridge",
-    "name": "Third Avenue Bridge",
-    "from": "Manhattan (Harlem)",
-    "to": "Bronx (Mott Haven)",
-    "distance": "0.2 mi",
-    "yearBuilt": 2004
-  },
-  {
-    "slug": "washington-bridge",
-    "name": "Washington Bridge",
-    "from": "Manhattan (Washington Heights)",
-    "to": "Bronx (University Heights)",
-    "distance": "0.4 mi",
-    "yearBuilt": 1889
-  },
-  {
-    "slug": "university-heights-bridge",
-    "name": "University Heights Bridge",
-    "from": "Manhattan (Inwood)",
-    "to": "Bronx (University Heights)",
-    "distance": "0.2 mi",
-    "yearBuilt": 1908
-  },
-  {
-    "slug": "broadway-bridge",
-    "name": "Broadway Bridge",
-    "from": "Manhattan (Inwood)",
-    "to": "Bronx (Marble Hill)",
-    "distance": "0.2 mi",
-    "yearBuilt": 1962
-  },
-  {
-    "slug": "henry-hudson-bridge",
-    "name": "Henry Hudson Bridge",
-    "from": "Manhattan (Inwood)",
-    "to": "Bronx (Riverdale)",
-    "distance": "0.4 mi",
-    "yearBuilt": 1936
-  },
-  {
-    "slug": "greenpoint-avenue-bridge",
-    "name": "Greenpoint Avenue Bridge",
-    "from": "Brooklyn (Greenpoint)",
-    "to": "Queens (Blissville)",
-    "distance": "0.2 mi",
-    "yearBuilt": 1986
+    "yearBuilt": 1909,
+    "region": "East River"
   },
   {
     "slug": "roosevelt-island-bridge",
@@ -141,6 +41,156 @@
     "from": "Queens (Astoria)",
     "to": "Roosevelt Island",
     "distance": "0.1 mi",
-    "yearBuilt": 1955
+    "yearBuilt": 1955,
+    "region": "East River"
+  },
+  {
+    "slug": "high-bridge",
+    "name": "High Bridge",
+    "from": "Manhattan (Highbridge Park)",
+    "to": "Bronx (Highbridge)",
+    "distance": "0.3 mi",
+    "yearBuilt": 1848,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "washington-bridge",
+    "name": "Washington Bridge",
+    "from": "Manhattan (Washington Heights)",
+    "to": "Bronx (University Heights)",
+    "distance": "0.4 mi",
+    "yearBuilt": 1889,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "alexander-hamilton-bridge",
+    "name": "Alexander Hamilton Bridge",
+    "from": "Manhattan (Washington Heights)",
+    "to": "Bronx (Highbridge)",
+    "distance": "0.4 mi",
+    "yearBuilt": 1963,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "macombs-dam-bridge",
+    "name": "Macombs Dam Bridge",
+    "from": "Manhattan (Harlem)",
+    "to": "Bronx (Yankee Stadium)",
+    "distance": "0.2 mi",
+    "yearBuilt": 1895,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "145th-street-bridge",
+    "name": "145th Street Bridge",
+    "from": "Manhattan (Harlem)",
+    "to": "Bronx (Port Morris)",
+    "distance": "0.2 mi",
+    "yearBuilt": 1905,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "madison-avenue-bridge",
+    "name": "Madison Avenue Bridge",
+    "from": "Manhattan (Harlem)",
+    "to": "Bronx (Mott Haven)",
+    "distance": "0.2 mi",
+    "yearBuilt": 1910,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "third-avenue-bridge",
+    "name": "Third Avenue Bridge",
+    "from": "Manhattan (Harlem)",
+    "to": "Bronx (Mott Haven)",
+    "distance": "0.2 mi",
+    "yearBuilt": 2004,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "willis-avenue-bridge",
+    "name": "Willis Avenue Bridge",
+    "from": "Manhattan (Harlem)",
+    "to": "Bronx (Mott Haven)",
+    "distance": "0.3 mi",
+    "yearBuilt": 2010,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "university-heights-bridge",
+    "name": "University Heights Bridge",
+    "from": "Manhattan (Inwood)",
+    "to": "Bronx (University Heights)",
+    "distance": "0.2 mi",
+    "yearBuilt": 1908,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "broadway-bridge",
+    "name": "Broadway Bridge",
+    "from": "Manhattan (Inwood)",
+    "to": "Bronx (Marble Hill)",
+    "distance": "0.2 mi",
+    "yearBuilt": 1962,
+    "region": "Harlem River"
+  },
+  {
+    "slug": "george-washington-bridge",
+    "name": "George Washington Bridge",
+    "from": "Manhattan (Washington Heights)",
+    "to": "New Jersey (Fort Lee)",
+    "distance": "0.9 mi",
+    "yearBuilt": 1931,
+    "region": "Hudson River"
+  },
+  {
+    "slug": "pulaski-bridge",
+    "name": "Pulaski Bridge",
+    "from": "Brooklyn (Greenpoint)",
+    "to": "Queens (Long Island City)",
+    "distance": "0.3 mi",
+    "yearBuilt": 1954,
+    "region": "Brooklyn\u2013Queens / Newtown Creek"
+  },
+  {
+    "slug": "greenpoint-avenue-bridge",
+    "name": "Greenpoint Avenue Bridge",
+    "from": "Brooklyn (Greenpoint)",
+    "to": "Queens (Blissville)",
+    "distance": "0.2 mi",
+    "yearBuilt": 1986,
+    "region": "Brooklyn\u2013Queens / Newtown Creek"
+  },
+  {
+    "slug": "kosciuszko-bridge",
+    "name": "Kosciuszko Bridge",
+    "from": "Brooklyn (Greenpoint)",
+    "to": "Queens (Maspeth)",
+    "distance": "0.5 mi",
+    "yearBuilt": 2017,
+    "region": "Brooklyn\u2013Queens / Newtown Creek"
+  },
+  {
+    "slug": "rfk-triborough-bridge",
+    "name": "RFK (Triborough) Bridge",
+    "from": "Manhattan (Harlem)",
+    "to": "Queens (Astoria) via Randalls Island",
+    "distance": "1.2 mi",
+    "yearBuilt": 1936,
+    "region": "Queens / Other"
+  },
+  {
+    "slug": "cross-bay-veterans-memorial-bridge",
+    "name": "Cross Bay Veterans Memorial Bridge",
+    "from": "Queens (Broad Channel)",
+    "to": "Queens (Rockaway)",
+    "distance": "1.3 mi",
+    "yearBuilt": 2017,
+    "region": "Queens / Other",
+    "funFacts": [
+      "One of only two toll crossings entirely within NYC — the other is the nearby Marine Parkway Bridge",
+      "The original 1939 bridge was so corroded by Jamaica Bay's salt water and air that full replacement ($905M) was cheaper than repairs",
+      "Crosses Jamaica Bay Wildlife Refuge, one of the best birdwatching spots in NYC — you can watch JFK planes take off at eye level from the walkway"
+    ]
   }
 ]

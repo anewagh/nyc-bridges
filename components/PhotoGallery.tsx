@@ -8,6 +8,11 @@ interface PhotoGalleryProps {
   photos: string[];
 }
 
+function photoSrc(slug: string, photo: string): string {
+  if (photo.startsWith("http")) return photo;
+  return `/photos/${slug}/${photo}`;
+}
+
 export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -16,18 +21,19 @@ export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {photos.map((photo) => (
+        {photos.map((photo, i) => (
           <button
-            key={photo}
+            key={`${photo}-${i}`}
             onClick={() => setSelected(photo)}
             className="aspect-square relative rounded-lg overflow-hidden bg-[var(--card-border)] hover:ring-2 ring-[var(--accent)] transition-all"
           >
             <Image
-              src={`/photos/${slug}/${photo}`}
-              alt={`${slug} - ${photo}`}
+              src={photoSrc(slug, photo)}
+              alt={`${slug} - photo ${i + 1}`}
               fill
               className="object-cover"
               sizes="(max-width: 640px) 50vw, 33vw"
+              unoptimized={photo.startsWith("http")}
             />
           </button>
         ))}
@@ -40,11 +46,12 @@ export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
         >
           <div className="relative max-w-3xl max-h-[85vh] w-full h-full">
             <Image
-              src={`/photos/${slug}/${selected}`}
+              src={photoSrc(slug, selected)}
               alt={selected}
               fill
               className="object-contain"
               sizes="90vw"
+              unoptimized={selected.startsWith("http")}
             />
           </div>
         </div>

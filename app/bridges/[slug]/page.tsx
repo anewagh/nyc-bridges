@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllBridges, getBridgeBySlug } from "@/lib/bridges";
-import { getWalkBySlug } from "@/lib/walks";
-import PhotoGallery from "@/components/PhotoGallery";
+import { getWalkBySlug, getWalkDataFromBlob } from "@/lib/walks";
+import BridgeWalkClient from "@/components/BridgeWalkClient";
+
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return getAllBridges().map((b) => ({ slug: b.slug }));
@@ -20,6 +22,13 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
   if (!bridge) notFound();
 
   const walk = await getWalkBySlug(slug);
+
+  // Also get raw description for edit form pre-fill
+  const blobData = await getWalkDataFromBlob(slug);
+  const walkWithDescription = walk ? {
+    ...walk,
+    description: blobData?.description || "",
+  } : null;
 
   return (
     <div>
@@ -48,7 +57,8 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
         )}
       </div>
 
-      <div className="flex gap-4 text-sm text-[var(--muted)] mb-8 pb-6 border-b border-[var(--card-border)]">
+      <div className="flex flex-wrap gap-4 text-sm text-[var(--muted)] mb-6 pb-6 border-b border-[var(--card-border)]">
+        <span>{bridge.region}</span>
         <span>Distance: {bridge.distance}</span>
         <span>Built: {bridge.yearBuilt}</span>
         {walk && (
@@ -66,42 +76,20 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
         )}
       </div>
 
-      {walk ? (
-        <div className="space-y-8">
-          {walk.photos.length > 0 && (
-            <PhotoGallery slug={slug} photos={walk.photos} />
-          )}
-
-          <article
-            className="prose"
-            dangerouslySetInnerHTML={{ __html: walk.contentHtml }}
-          />
-
-          {walk.rating > 0 && (
-            <div className="pt-4 border-t border-[var(--card-border)]">
-              <span className="text-sm text-[var(--muted)]">Rating: </span>
-              <span className="text-lg">
-                {"★".repeat(walk.rating)}
-                {"☆".repeat(5 - walk.rating)}
-              </span>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="text-center py-16">
-          <p className="text-5xl mb-4">🌉</p>
-          <p className="text-lg text-[var(--muted)]">
-            Haven&apos;t walked this one yet.
-          </p>
-          <p className="text-sm text-[var(--muted)] mt-2">
-            Add a markdown file at{" "}
-            <code className="bg-[var(--card-border)] px-1.5 py-0.5 rounded text-xs">
-              content/walks/{slug}.md
-            </code>{" "}
-            to log your walk.
-          </p>
+      {bridge.funFacts && bridge.funFacts.length > 0 && (
+        <div className="mb-8 p-4 rounded-lg bg-[var(--accent-light)] border border-[var(--card-border)]">
+          <h3 className="text-sm font-semibold mb-2">Fun Facts</h3>
+          <ul className="space-y-1.5">
+            {bridge.funFacts.map((fact, i) => (
+              <li key={i} className="text-sm text-[var(--foreground)] leading-relaxed">
+                &bull; {fact}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
+
+      <BridgeWalkClient slug={slug} walk={walkWithDescription} />
     </div>
   );
 }

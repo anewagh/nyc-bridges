@@ -1,16 +1,18 @@
 interface ProgressRingProps {
   completed: number;
   total: number;
+  completedMiles: number;
+  totalMiles: number;
 }
 
-export default function ProgressRing({ completed, total }: ProgressRingProps) {
+export default function ProgressRing({ completed, total, completedMiles, totalMiles }: ProgressRingProps) {
   const pct = total > 0 ? (completed / total) * 100 : 0;
   const radius = 54;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (pct / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-4">
       <div className="relative w-36 h-36">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
           <circle
@@ -39,7 +41,10 @@ export default function ProgressRing({ completed, total }: ProgressRingProps) {
           <span className="text-sm text-[var(--muted)]">of {total}</span>
         </div>
       </div>
-      <p className="text-sm text-[var(--muted)]">bridges walked</p>
+      <div className="flex gap-6 text-sm text-[var(--muted)]">
+        <span><strong className="text-[var(--foreground)]">{completed}</strong> of {total} bridges</span>
+        <span><strong className="text-[var(--foreground)]">{completedMiles.toFixed(1)}</strong> of {totalMiles.toFixed(1)} mi</span>
+      </div>
     </div>
   );
 }
