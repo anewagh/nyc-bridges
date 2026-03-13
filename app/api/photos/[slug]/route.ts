@@ -19,6 +19,7 @@ export async function POST(
     const blob = await put(`photos/${slug}/${file.name}`, file, {
       access: "private",
       addRandomSuffix: false,
+      allowOverwrite: true,
     });
 
     // Store permanent blob.url in walk data (resolved to downloadUrl at render time)

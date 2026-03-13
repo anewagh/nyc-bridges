@@ -71,6 +71,7 @@ export async function saveWalkToBlob(slug: string, data: WalkData): Promise<Walk
   await put(`walks/${slug}.json`, JSON.stringify(data), {
     access: "private",
     addRandomSuffix: false,
+    allowOverwrite: true,
     contentType: "application/json",
   });
   return data;
