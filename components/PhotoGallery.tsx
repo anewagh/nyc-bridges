@@ -9,8 +9,14 @@ interface PhotoGalleryProps {
 }
 
 function photoSrc(slug: string, photo: string): string {
-  if (photo.startsWith("http")) return photo;
+  // Proxy URLs (/api/...) and full URLs (http...) pass through
+  if (photo.startsWith("/") || photo.startsWith("http")) return photo;
+  // Local filenames resolve to /photos/slug/filename
   return `/photos/${slug}/${photo}`;
+}
+
+function isExternal(photo: string): boolean {
+  return photo.startsWith("http");
 }
 
 export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
@@ -33,7 +39,7 @@ export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
               fill
               className="object-cover"
               sizes="(max-width: 640px) 50vw, 33vw"
-              unoptimized={photo.startsWith("http")}
+              unoptimized={isExternal(photo)}
             />
           </button>
         ))}
@@ -51,7 +57,7 @@ export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
               fill
               className="object-contain"
               sizes="90vw"
-              unoptimized={selected.startsWith("http")}
+              unoptimized={isExternal(selected)}
             />
           </div>
         </div>

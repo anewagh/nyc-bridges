@@ -50,9 +50,8 @@ export default function PhotoUploader({ slug, photos, onUploaded }: PhotoUploade
     }
   }
 
-  // Check if a photo is a blob URL (full https://) vs local filename
   function photoSrc(photo: string): string {
-    if (photo.startsWith("http")) return photo;
+    if (photo.startsWith("/") || photo.startsWith("http")) return photo;
     return `/photos/${slug}/${photo}`;
   }
 
@@ -69,7 +68,7 @@ export default function PhotoUploader({ slug, photos, onUploaded }: PhotoUploade
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 33vw, 25vw"
-                unoptimized={photo.startsWith("http")}
+                unoptimized={photo.startsWith("http") || photo.startsWith("/api/")}
               />
             </div>
           ))}

@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-import { list, head, put } from "@vercel/blob";
+import { list, put } from "@vercel/blob";
 
 const walksDirectory = path.join(process.cwd(), "content/walks");
 
@@ -37,20 +37,13 @@ async function fetchBlob(url: string): Promise<Response> {
   });
 }
 
-async function resolvePhotoUrls(photos: string[]): Promise<string[]> {
-  return Promise.all(
-    photos.map(async (photo) => {
-      if (photo.startsWith("http")) {
-        try {
-          const info = await head(photo);
-          return info.downloadUrl;
-        } catch {
-          return photo;
-        }
-      }
-      return photo;
-    })
-  );
+function resolvePhotoUrls(photos: string[]): string[] {
+  return photos.map((photo) => {
+    if (photo.includes("blob.vercel-storage.com")) {
+      return `/api/blob-image?url=${encodeURIComponent(photo)}`;
+    }
+    return photo;
+  });
 }
 
 export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
