@@ -52,7 +52,7 @@ export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
 
 export async function saveWalkToBlob(slug: string, data: WalkData): Promise<WalkData> {
   const blob = await put(`walks/${slug}.json`, JSON.stringify(data), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     contentType: "application/json",
   });
