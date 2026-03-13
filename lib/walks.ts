@@ -26,9 +26,25 @@ export interface WalkData {
 
 // --- Blob storage helpers ---
 
+async function resolvePhotoUrls(photos: string[]): Promise<string[]> {
+  return Promise.all(
+    photos.map(async (photo) => {
+      if (photo.startsWith("http")) {
+        try {
+          const info = await head(photo);
+          return info.downloadUrl;
+        } catch {
+          return photo;
+        }
+      }
+      return photo; // local filename, keep as-is
+    })
+  );
+}
+
 export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
   try {
-    const blobUrl = await getBlobUrl(`walks/${slug}.json`);
+    const blobUrl = await getBlobDownloadUrl(`walks/${slug}.json`);
     if (!blobUrl) return null;
 
     const response = await fetch(blobUrl, { cache: "no-store" });
@@ -36,13 +52,14 @@ export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
 
     const data: WalkData = await response.json();
     const processed = await remark().use(html).process(data.description || "");
+    const resolvedPhotos = await resolvePhotoUrls(data.photos || []);
 
     return {
       slug,
       date: data.date || "",
       rating: data.rating || 0,
       weather: data.weather || "",
-      photos: data.photos || [],
+      photos: resolvedPhotos,
       contentHtml: processed.toString(),
     };
   } catch {
@@ -51,19 +68,17 @@ export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
 }
 
 export async function saveWalkToBlob(slug: string, data: WalkData): Promise<WalkData> {
-  const blob = await put(`walks/${slug}.json`, JSON.stringify(data), {
+  await put(`walks/${slug}.json`, JSON.stringify(data), {
     access: "private",
     addRandomSuffix: false,
     contentType: "application/json",
   });
-  // Return the data as saved (blob.url points to the file)
-  void blob;
   return data;
 }
 
 export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null> {
   try {
-    const blobUrl = await getBlobUrl(`walks/${slug}.json`);
+    const blobUrl = await getBlobDownloadUrl(`walks/${slug}.json`);
     if (!blobUrl) return null;
 
     const response = await fetch(blobUrl, { cache: "no-store" });
@@ -75,11 +90,11 @@ export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null
   }
 }
 
-async function getBlobUrl(pathname: string): Promise<string | null> {
+async function getBlobDownloadUrl(pathname: string): Promise<string | null> {
   try {
     const result = await list({ prefix: pathname, limit: 1 });
     if (result.blobs.length > 0) {
-      return result.blobs[0].url;
+      return result.blobs[0].downloadUrl;
     }
     return null;
   } catch {
@@ -134,11 +149,8 @@ async function getWalkFromMarkdown(slug: string): Promise<Walk | null> {
 // --- Public API: blob-first, markdown fallback ---
 
 export async function getWalkBySlug(slug: string): Promise<Walk | null> {
-  // Try blob first
   const blobWalk = await getWalkFromBlob(slug);
   if (blobWalk) return blobWalk;
-
-  // Fall back to markdown
   return getWalkFromMarkdown(slug);
 }
 
