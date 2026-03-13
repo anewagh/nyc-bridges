@@ -6,7 +6,12 @@
     "to": "Manhattan (City Hall)",
     "distance": "1.1 mi",
     "yearBuilt": 1883,
-    "region": "East River"
+    "region": "East River",
+    "funFacts": [
+      "P.T. Barnum paraded 21 elephants across in 1884 to prove to skeptical New Yorkers it wouldn't collapse",
+      "Emily Warren Roebling oversaw construction after her husband fell ill — she was the first person to cross the completed bridge",
+      "It was the first bridge to use steel wire for its cables and was the longest suspension bridge in the world for 20 years"
+    ]
   },
   {
     "slug": "manhattan-bridge",
@@ -15,7 +20,12 @@
     "to": "Manhattan (Chinatown)",
     "distance": "1.1 mi",
     "yearBuilt": 1909,
-    "region": "East River"
+    "region": "East River",
+    "funFacts": [
+      "Carries more subway traffic than any other bridge in NYC — the B, D, N, and Q trains all cross it",
+      "The view of the Brooklyn Bridge perfectly framed through its stone arch from DUMBO is one of the most photographed spots in New York",
+      "It sways noticeably when multiple subway trains cross at once — the movement was so bad in the 1980s that two lanes were closed for a decade of repairs"
+    ]
   },
   {
     "slug": "williamsburg-bridge",
@@ -24,7 +34,12 @@
     "to": "Manhattan (Lower East Side)",
     "distance": "1.2 mi",
     "yearBuilt": 1903,
-    "region": "East River"
+    "region": "East River",
+    "funFacts": [
+      "When it opened it was the longest suspension bridge in the world, stealing the title from the Brooklyn Bridge",
+      "It triggered a massive migration of Jewish immigrants from the Lower East Side to Williamsburg — earning the nickname 'Jews' Highway'",
+      "The pedestrian walkway is split: north side for bikes, south side for pedestrians, with some of the best unobstructed skyline views of any NYC bridge"
+    ]
   },
   {
     "slug": "queensboro-bridge",
@@ -33,7 +48,12 @@
     "to": "Manhattan (Midtown East)",
     "distance": "1.4 mi",
     "yearBuilt": 1909,
-    "region": "East River"
+    "region": "East River",
+    "funFacts": [
+      "F. Scott Fitzgerald immortalized it in The Great Gatsby — 'The city seen from the Queensboro Bridge is always the city seen for the first time'",
+      "Simon & Garfunkel wrote '59th Street Bridge Song (Feelin' Groovy)' about it",
+      "It's a cantilever bridge, not a suspension bridge — making it an engineering oddity among NYC's East River crossings"
+    ]
   },
   {
     "slug": "roosevelt-island-bridge",
@@ -42,7 +62,12 @@
     "to": "Roosevelt Island",
     "distance": "0.1 mi",
     "yearBuilt": 1955,
-    "region": "East River"
+    "region": "East River",
+    "funFacts": [
+      "It's the only road connection to Roosevelt Island — everyone else takes the subway or the iconic aerial tramway",
+      "The island was called Welfare Island until 1973 and before that Blackwell's Island, home to a notorious prison, asylum, and smallpox hospital",
+      "At 0.1 miles it may be the shortest bridge walk in NYC but it connects to the 2-mile island promenade loop"
+    ]
   },
   {
     "slug": "high-bridge",
@@ -51,7 +76,12 @@
     "to": "Bronx (Highbridge)",
     "distance": "0.3 mi",
     "yearBuilt": 1848,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "The oldest standing bridge in New York City — it was built as part of the Croton Aqueduct to carry drinking water to Manhattan",
+      "Closed to pedestrians for 45 years (1970–2015) due to crime concerns before a $61.8M restoration reopened it",
+      "The original stone arches over the river were replaced with a single steel arch in 1928 to improve ship navigation"
+    ]
   },
   {
     "slug": "washington-bridge",
@@ -60,7 +90,12 @@
     "to": "Bronx (University Heights)",
     "distance": "0.4 mi",
     "yearBuilt": 1889,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "Not to be confused with the George Washington Bridge — this one is 42 years older and much less famous",
+      "When it opened, the New York Times called it 'the most beautiful bridge in the world' for its arched stone design",
+      "It's a double-decker: the upper level carries traffic while the lower level was originally designed for a never-built rail line"
+    ]
   },
   {
     "slug": "alexander-hamilton-bridge",
@@ -69,7 +104,12 @@
     "to": "Bronx (Highbridge)",
     "distance": "0.4 mi",
     "yearBuilt": 1963,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "Carries I-95 / Cross Bronx Expressway — one of the most congested highways in the United States",
+      "Named after Alexander Hamilton, who lived nearby at the Hamilton Grange, now a national memorial",
+      "Built as part of Robert Moses' highway network that controversially displaced thousands of Bronx residents"
+    ]
   },
   {
     "slug": "macombs-dam-bridge",
@@ -78,7 +118,12 @@
     "to": "Bronx (Yankee Stadium)",
     "distance": "0.2 mi",
     "yearBuilt": 1895,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "Named after Robert Macomb, who built a dam across the Harlem River in 1813 — furious locals tore it down because it blocked boat traffic",
+      "It's a swing bridge that rotates on a central pivot to let boats pass through",
+      "Drops you right at Yankee Stadium — on game days this tiny bridge handles massive pedestrian crowds"
+    ]
   },
   {
     "slug": "145th-street-bridge",
@@ -87,7 +132,12 @@
     "to": "Bronx (Port Morris)",
     "distance": "0.2 mi",
     "yearBuilt": 1905,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "A swing bridge that pivots on its center pier — when it opens for boats, both halves of the roadway rotate 90 degrees",
+      "One of the busiest swing bridges remaining in NYC, opening multiple times a day for river traffic",
+      "It replaced an earlier wooden bridge from 1895 that was too narrow for the growing Bronx"
+    ]
   },
   {
     "slug": "madison-avenue-bridge",
@@ -96,7 +146,12 @@
     "to": "Bronx (Mott Haven)",
     "distance": "0.2 mi",
     "yearBuilt": 1910,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "Despite the name, it doesn't connect to the Madison Avenue you're thinking of — the avenue ends miles south in Midtown",
+      "It's a swing bridge with a center pivot that still opens regularly for barge traffic on the Harlem River",
+      "The original 1884 bridge at this location was one of the very first crossings built over the Harlem River"
+    ]
   },
   {
     "slug": "third-avenue-bridge",
@@ -105,7 +160,12 @@
     "to": "Bronx (Mott Haven)",
     "distance": "0.2 mi",
     "yearBuilt": 2004,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "The current bridge is a modern steel arch that replaced a swing bridge from 1898 — no more waiting for boats",
+      "One of the newest Harlem River crossings, designed to never need to open for marine traffic",
+      "The original 1898 bridge at this site was notorious for traffic jams when it swung open during rush hour"
+    ]
   },
   {
     "slug": "willis-avenue-bridge",
@@ -114,7 +174,12 @@
     "to": "Bronx (Mott Haven)",
     "distance": "0.3 mi",
     "yearBuilt": 2010,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "The old 1901 swing bridge was floated 1.5 miles down the Harlem River on a barge to be demolished — a rare and dramatic engineering feat",
+      "The first new bridge built across the Harlem River in over 50 years when it opened in 2010",
+      "It was built slightly upstream of the old bridge so traffic could keep flowing during construction"
+    ]
   },
   {
     "slug": "university-heights-bridge",
@@ -123,7 +188,12 @@
     "to": "Bronx (University Heights)",
     "distance": "0.2 mi",
     "yearBuilt": 1908,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "This bridge was physically relocated — originally built at Fordham Road, it was disassembled and moved to W. 207th Street in 1908",
+      "One of the only bridges in NYC history to be picked up and moved to a completely different location",
+      "It's a swing bridge that still opens for boat traffic, pivoting on its center pier"
+    ]
   },
   {
     "slug": "broadway-bridge",
@@ -132,7 +202,12 @@
     "to": "Bronx (Marble Hill)",
     "distance": "0.2 mi",
     "yearBuilt": 1962,
-    "region": "Harlem River"
+    "region": "Harlem River",
+    "funFacts": [
+      "Connects Manhattan to Marble Hill — a neighborhood that's geographically in the Bronx but politically part of Manhattan since 1914",
+      "Marble Hill became separated from Manhattan when the Harlem River Ship Canal was dug through in 1895, turning it into an island (later filled in)",
+      "The northernmost crossing of the Harlem River and the last bridge before the Hudson"
+    ]
   },
   {
     "slug": "george-washington-bridge",
@@ -141,7 +216,12 @@
     "to": "New Jersey (Fort Lee)",
     "distance": "0.9 mi",
     "yearBuilt": 1931,
-    "region": "Hudson River"
+    "region": "Hudson River",
+    "funFacts": [
+      "The busiest motor vehicle bridge in the world — over 103 million vehicles cross it every year",
+      "The steel towers were designed to be clad in stone, but the Great Depression killed the budget — the exposed steel became its iconic look and people loved it",
+      "Le Corbusier called it 'the most beautiful bridge in the world' and 'the only seat of grace in the disordered city'"
+    ]
   },
   {
     "slug": "pulaski-bridge",
@@ -150,7 +230,12 @@
     "to": "Queens (Long Island City)",
     "distance": "0.3 mi",
     "yearBuilt": 1954,
-    "region": "Brooklyn\u2013Queens / Newtown Creek"
+    "region": "Brooklyn\u2013Queens / Newtown Creek",
+    "funFacts": [
+      "A key crossing point for the NYC Marathon — runners cross from Brooklyn into Queens over this bridge at mile 13",
+      "Named after Casimir Pulaski, a Polish general who died fighting for American independence at the Siege of Savannah in 1779",
+      "During the 2003 Northeast blackout, this bridge became a critical pedestrian escape route when subways shut down"
+    ]
   },
   {
     "slug": "greenpoint-avenue-bridge",
@@ -159,7 +244,12 @@
     "to": "Queens (Blissville)",
     "distance": "0.2 mi",
     "yearBuilt": 1986,
-    "region": "Brooklyn\u2013Queens / Newtown Creek"
+    "region": "Brooklyn\u2013Queens / Newtown Creek",
+    "funFacts": [
+      "Crosses Newtown Creek, designated a federal Superfund site in 2010 — one of the most polluted waterways in America",
+      "It's a bascule (drawbridge) that lifts to let boats through the creek below",
+      "Beneath it lies the remnants of a massive underground oil spill — an estimated 17–30 million gallons of petroleum leaked into the soil over decades, rivaling the Exxon Valdez"
+    ]
   },
   {
     "slug": "kosciuszko-bridge",
@@ -168,7 +258,12 @@
     "to": "Queens (Maspeth)",
     "distance": "0.5 mi",
     "yearBuilt": 2017,
-    "region": "Brooklyn\u2013Queens / Newtown Creek"
+    "region": "Brooklyn\u2013Queens / Newtown Creek",
+    "funFacts": [
+      "The original 1939 bridge was so steep that trucks regularly overheated climbing it — locals called it 'the Crack in the BQE'",
+      "Named after Tadeusz Kosciuszko, a Polish military engineer who designed fortifications for the Continental Army during the Revolution",
+      "The new cable-stayed bridge has a dedicated pedestrian/bike path with panoramic Manhattan skyline views that the original never had"
+    ]
   },
   {
     "slug": "rfk-triborough-bridge",
@@ -177,7 +272,12 @@
     "to": "Queens (Astoria) via Randalls Island",
     "distance": "1.2 mi",
     "yearBuilt": 1936,
-    "region": "Queens / Other"
+    "region": "Queens / Other",
+    "funFacts": [
+      "It's actually three separate bridges connected by viaducts on Randalls Island — linking Manhattan, Queens, and the Bronx in one complex",
+      "Robert Moses' crown jewel: it funded his empire of parks and highways through toll revenue for decades",
+      "Renamed for Robert F. Kennedy in 2008, but most New Yorkers still call it the Triborough"
+    ]
   },
   {
     "slug": "cross-bay-veterans-memorial-bridge",
