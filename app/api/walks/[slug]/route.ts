@@ -1,25 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { list } from "@vercel/blob";
-import { getWalkBySlug, getWalkDataFromBlob, saveWalkToBlob } from "@/lib/walks";
+import { del } from "@vercel/blob";
+import { getWalkBySlug, getWalkDataFromBlob, saveWalkToBlob, findBlobUrl } from "@/lib/walks";
 import type { WalkData } from "@/lib/walks";
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const debug = request.nextUrl.searchParams.get("debug") === "1";
-
-  if (debug) {
-    // List all blobs to see what's stored
-    const allBlobs = await list({});
-    const walkBlobs = await list({ prefix: `walks/${slug}` });
-    return NextResponse.json({
-      allBlobCount: allBlobs.blobs.length,
-      allBlobs: allBlobs.blobs.map((b) => ({ pathname: b.pathname, url: b.url })),
-      walkBlobs: walkBlobs.blobs.map((b) => ({ pathname: b.pathname, url: b.url, downloadUrl: b.downloadUrl })),
-    });
-  }
 
   // Try blob first
   const blobData = await getWalkDataFromBlob(slug);
@@ -61,6 +49,23 @@ export async function PUT(
 
     const saved = await saveWalkToBlob(slug, data);
     return NextResponse.json(saved);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await params;
+    const url = await findBlobUrl(`walks/${slug}.json`);
+    if (url) {
+      await del(url);
+    }
+    return NextResponse.json({ deleted: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });

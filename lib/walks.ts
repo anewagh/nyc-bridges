@@ -102,7 +102,7 @@ export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null
   }
 }
 
-async function findBlobUrl(pathname: string): Promise<string | null> {
+export async function findBlobUrl(pathname: string): Promise<string | null> {
   try {
     const result = await list({ prefix: pathname, limit: 1 });
     if (result.blobs.length > 0) {
