@@ -24,11 +24,11 @@ export default async function Home() {
 
   return (
     <div>
-      <section className="text-center py-8">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">
+      <section className="text-center py-10">
+        <h1 className="font-serif text-3xl font-bold tracking-tight mb-3">
           NYC Bridge Walks
         </h1>
-        <p className="text-[var(--muted)] mb-8">
+        <p className="font-serif italic text-[var(--muted)] text-lg mb-8">
           Walking every major bridge in New York City, one crossing at a time.
         </p>
         <ProgressRing
@@ -47,10 +47,11 @@ export default async function Home() {
         return (
           <section key={region} className="mt-10">
             <div className="flex items-baseline gap-3 mb-4">
-              <h2 className="text-lg font-semibold">{region}</h2>
+              <h2 className="font-serif text-lg font-bold">{region}</h2>
               <span className="text-sm text-[var(--muted)]">
                 {completedCount}/{regionBridges.length}
               </span>
+              <span className="flex-1 border-b border-dashed border-[var(--accent)] opacity-30" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {regionBridges.map((bridge) => {

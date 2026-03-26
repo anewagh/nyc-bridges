@@ -11,10 +11,10 @@ export default function BridgeCard({ bridge, completed, walkDate }: BridgeCardPr
   return (
     <Link href={`/bridges/${bridge.slug}`}>
       <div
-        className={`rounded-lg border p-4 transition-all hover:shadow-md ${
+        className={`rounded-xl border p-4 transition-all duration-200 ${
           completed
-            ? "border-[var(--success)] bg-[var(--card-bg)]"
-            : "border-[var(--card-border)] bg-[var(--card-bg)] opacity-60 hover:opacity-100"
+            ? "border-[var(--success)] bg-[var(--card-bg)] shadow-sm hover:shadow-[0_4px_16px_rgba(194,112,62,0.12)]"
+            : "border-[var(--card-border)] bg-[var(--card-bg)] opacity-70 hover:opacity-100 hover:shadow-[0_4px_16px_rgba(194,112,62,0.10)]"
         }`}
       >
         <div className="flex items-start justify-between gap-2">

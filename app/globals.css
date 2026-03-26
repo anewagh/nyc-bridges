@@ -1,33 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
+  --background: #f5f0eb;
   --foreground: #1c1917;
-  --accent: #2563eb;
-  --accent-light: #dbeafe;
+  --accent: #c2703e;
+  --accent-light: #fdf0e6;
   --muted: #a8a29e;
-  --card-bg: #ffffff;
+  --card-bg: #fffdf9;
   --card-border: #e7e5e4;
-  --success: #16a34a;
+  --success: #2d9d4e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat);
+  --font-serif: var(--font-serif);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0c0a09;
     --foreground: #e7e5e4;
-    --accent: #60a5fa;
-    --accent-light: #1e3a5f;
+    --accent: #d4915e;
+    --accent-light: #2a1a0e;
     --muted: #78716c;
     --card-bg: #1c1917;
     --card-border: #292524;
-    --success: #22c55e;
+    --success: #34d058;
   }
 }
 
@@ -37,15 +37,20 @@ body {
   font-family: var(--font-sans, Arial, Helvetica, sans-serif);
 }
 
+.font-serif {
+  font-family: var(--font-serif), Georgia, 'Times New Roman', serif;
+}
+
 .prose {
-  line-height: 1.75;
+  line-height: 1.8;
 }
 .prose p {
-  margin-bottom: 1em;
+  margin-bottom: 1.15em;
 }
 .prose h2 {
+  font-family: var(--font-serif), Georgia, serif;
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }

@@ -45,7 +45,7 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
 
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">{bridge.name}</h1>
+          <h1 className="font-serif text-2xl font-bold tracking-tight">{bridge.name}</h1>
           <p className="text-[var(--muted)] mt-1">
             {bridge.from} &rarr; {bridge.to}
           </p>
@@ -61,10 +61,12 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
         )}
       </div>
 
-      <div className="flex flex-wrap gap-4 text-sm text-[var(--muted)] mb-6 pb-6 border-b border-[var(--card-border)]">
+      <div className="flex flex-wrap gap-2 text-sm text-[var(--muted)] mb-6 pb-6 border-b border-dashed border-[var(--accent)] border-opacity-30">
         <span>{bridge.region}</span>
-        <span>Distance: {bridge.distance}</span>
-        <span>Built: {bridge.yearBuilt}</span>
+        <span className="text-[var(--accent)] opacity-40">&middot;</span>
+        <span>{bridge.distance}</span>
+        <span className="text-[var(--accent)] opacity-40">&middot;</span>
+        <span>Built {bridge.yearBuilt}</span>
         {walk && (
           <>
             {walk.date && (
@@ -83,8 +85,8 @@ export default async function BridgePage({ params }: { params: Promise<{ slug: s
       </div>
 
       {bridge.funFacts && bridge.funFacts.length > 0 && (
-        <div className="mb-8 p-4 rounded-lg bg-[var(--accent-light)] border border-[var(--card-border)]">
-          <h3 className="text-sm font-semibold mb-2">Fun Facts</h3>
+        <div className="mb-8 p-5 rounded-xl bg-[var(--accent-light)] border border-[var(--accent)] border-opacity-20">
+          <h3 className="font-serif text-sm font-bold mb-2">Fun Facts</h3>
           <ul className="space-y-1.5">
             {bridge.funFacts.map((fact, i) => (
               <li key={i} className="text-sm text-[var(--foreground)] leading-relaxed">

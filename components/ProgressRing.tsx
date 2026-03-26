@@ -28,7 +28,7 @@ export default function ProgressRing({ completed, total, completedMiles, totalMi
             cy="60"
             r={radius}
             fill="none"
-            stroke="var(--success)"
+            stroke="var(--accent)"
             strokeWidth="8"
             strokeLinecap="round"
             strokeDasharray={circumference}
@@ -37,7 +37,7 @@ export default function ProgressRing({ completed, total, completedMiles, totalMi
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-3xl font-bold">{completed}</span>
+          <span className="text-3xl font-bold tracking-tight">{completed}</span>
           <span className="text-sm text-[var(--muted)]">of {total}</span>
         </div>
       </div>
