@@ -16,10 +16,11 @@ interface WalkDisplay {
 
 interface BridgeWalkClientProps {
   slug: string;
+  citySlug: string;
   walk: WalkDisplay | null;
 }
 
-export default function BridgeWalkClient({ slug, walk }: BridgeWalkClientProps) {
+export default function BridgeWalkClient({ slug, citySlug, walk }: BridgeWalkClientProps) {
   const [editing, setEditing] = useState(false);
   const router = useRouter();
 
@@ -36,6 +37,7 @@ export default function BridgeWalkClient({ slug, walk }: BridgeWalkClientProps) 
         </h2>
         <EditWalkForm
           slug={slug}
+          citySlug={citySlug}
           initial={walk ? {
             date: walk.date,
             rating: walk.rating,
@@ -63,7 +65,7 @@ export default function BridgeWalkClient({ slug, walk }: BridgeWalkClientProps) 
         </div>
 
         {walk.photos.length > 0 && (
-          <PhotoGallery slug={slug} photos={walk.photos} />
+          <PhotoGallery slug={slug} citySlug={citySlug} photos={walk.photos} />
         )}
 
         <article

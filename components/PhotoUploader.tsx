@@ -5,11 +5,12 @@ import Image from "next/image";
 
 interface PhotoUploaderProps {
   slug: string;
+  citySlug: string;
   photos: string[];
   onUploaded: (url: string) => void;
 }
 
-export default function PhotoUploader({ slug, photos, onUploaded }: PhotoUploaderProps) {
+export default function PhotoUploader({ slug, citySlug, photos, onUploaded }: PhotoUploaderProps) {
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -20,7 +21,7 @@ export default function PhotoUploader({ slug, photos, onUploaded }: PhotoUploade
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch(`/api/photos/${slug}`, {
+      const res = await fetch(`/api/photos/${citySlug}/${slug}`, {
         method: "POST",
         body: formData,
       });

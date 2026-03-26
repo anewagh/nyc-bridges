@@ -5,6 +5,7 @@ import Image from "next/image";
 
 interface PhotoGalleryProps {
   slug: string;
+  citySlug: string;
   photos: string[];
 }
 
@@ -19,7 +20,7 @@ function shouldSkipOptimization(photo: string): boolean {
   return photo.startsWith("http") || photo.startsWith("/api/");
 }
 
-export default function PhotoGallery({ slug, photos }: PhotoGalleryProps) {
+export default function PhotoGallery({ slug, citySlug: _citySlug, photos }: PhotoGalleryProps) {
   const [selected, setSelected] = useState<string | null>(null);
 
   if (photos.length === 0) return null;

@@ -17,8 +17,8 @@ const libreBaskerville = Libre_Baskerville({
 });
 
 export const metadata: Metadata = {
-  title: "NYC Bridge Walks",
-  description: "Tracking my goal of walking every major bridge in New York City",
+  title: "Bridge Walks",
+  description: "Track your goal of walking every major bridge, city by city",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
         <header className="border-b border-[var(--card-border)]">
           <nav className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="font-serif text-lg font-bold tracking-tight">
-              NYC Bridge Walks
+              Bridge Walks
             </Link>
             <span className="text-sm text-[var(--muted)]">2026</span>
           </nav>

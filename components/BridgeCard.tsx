@@ -3,13 +3,14 @@ import { Bridge } from "@/lib/bridges";
 
 interface BridgeCardProps {
   bridge: Bridge;
+  citySlug: string;
   completed: boolean;
   walkDate?: string;
 }
 
-export default function BridgeCard({ bridge, completed, walkDate }: BridgeCardProps) {
+export default function BridgeCard({ bridge, citySlug, completed, walkDate }: BridgeCardProps) {
   return (
-    <Link href={`/bridges/${bridge.slug}`}>
+    <Link href={`/bridges/${citySlug}/${bridge.slug}`}>
       <div
         className={`rounded-xl border p-4 transition-all duration-200 ${
           completed

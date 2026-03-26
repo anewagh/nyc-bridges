@@ -54,9 +54,19 @@ function resolvePhotoUrls(photos: string[]): string[] {
   });
 }
 
-export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
+function walkBlobPath(bridgeSlug: string, citySlug?: string): string {
+  if (!citySlug || citySlug === "nyc") return `walks/${bridgeSlug}.json`;
+  return `walks/${citySlug}/${bridgeSlug}.json`;
+}
+
+function photoBlobPrefix(bridgeSlug: string, citySlug?: string): string {
+  if (!citySlug || citySlug === "nyc") return `photos/${bridgeSlug}`;
+  return `photos/${citySlug}/${bridgeSlug}`;
+}
+
+export async function getWalkFromBlob(slug: string, citySlug?: string): Promise<Walk | null> {
   try {
-    const blobUrl = await findBlobUrl(`walks/${slug}.json`);
+    const blobUrl = await findBlobUrl(walkBlobPath(slug, citySlug));
     if (!blobUrl) return null;
 
     const response = await fetchBlob(blobUrl);
@@ -79,8 +89,8 @@ export async function getWalkFromBlob(slug: string): Promise<Walk | null> {
   }
 }
 
-export async function saveWalkToBlob(slug: string, data: WalkData): Promise<WalkData> {
-  await put(`walks/${slug}.json`, JSON.stringify(data), {
+export async function saveWalkToBlob(slug: string, data: WalkData, citySlug?: string): Promise<WalkData> {
+  await put(walkBlobPath(slug, citySlug), JSON.stringify(data), {
     access: "private",
     addRandomSuffix: false,
     allowOverwrite: true,
@@ -89,9 +99,9 @@ export async function saveWalkToBlob(slug: string, data: WalkData): Promise<Walk
   return data;
 }
 
-export async function getWalkDataFromBlob(slug: string): Promise<WalkData | null> {
+export async function getWalkDataFromBlob(slug: string, citySlug?: string): Promise<WalkData | null> {
   try {
-    const blobUrl = await findBlobUrl(`walks/${slug}.json`);
+    const blobUrl = await findBlobUrl(walkBlobPath(slug, citySlug));
     if (!blobUrl) return null;
 
     const response = await fetchBlob(blobUrl);
@@ -118,12 +128,19 @@ export async function findBlobUrl(pathname: string): Promise<string | null> {
   }
 }
 
-export async function getCompletedBlobSlugs(): Promise<string[]> {
+export async function getCompletedBlobSlugs(citySlug?: string): Promise<string[]> {
   try {
-    const result = await list({ prefix: "walks/" });
+    const prefix = (!citySlug || citySlug === "nyc") ? "walks/" : `walks/${citySlug}/`;
+    const result = await list({ prefix });
     return result.blobs
       .map((b) => {
-        const match = b.pathname.match(/^walks\/(.+)\.json$/);
+        if (!citySlug || citySlug === "nyc") {
+          // NYC: walks/brooklyn-bridge.json → brooklyn-bridge (skip nested paths)
+          const match = b.pathname.match(/^walks\/([^/]+)\.json$/);
+          return match ? match[1] : null;
+        }
+        // Other cities: walks/chicago/bridge-name.json → bridge-name
+        const match = b.pathname.match(/^walks\/[^/]+\/([^/]+)\.json$/);
         return match ? match[1] : null;
       })
       .filter((s): s is string => s !== null);
@@ -164,14 +181,23 @@ async function getWalkFromMarkdown(slug: string): Promise<Walk | null> {
 
 // --- Public API: blob-first, markdown fallback ---
 
-export async function getWalkBySlug(slug: string): Promise<Walk | null> {
-  const blobWalk = await getWalkFromBlob(slug);
+export async function getWalkBySlug(slug: string, citySlug?: string): Promise<Walk | null> {
+  const blobWalk = await getWalkFromBlob(slug, citySlug);
   if (blobWalk) return blobWalk;
-  return getWalkFromMarkdown(slug);
+  if (!citySlug || citySlug === "nyc") {
+    return getWalkFromMarkdown(slug);
+  }
+  return null;
 }
 
-export async function getAllCompletedSlugs(): Promise<string[]> {
-  const mdSlugs = getCompletedSlugs();
-  const blobSlugs = await getCompletedBlobSlugs();
-  return [...new Set([...mdSlugs, ...blobSlugs])];
+export async function getAllCompletedSlugs(citySlug?: string): Promise<string[]> {
+  const blobSlugs = await getCompletedBlobSlugs(citySlug);
+  if (!citySlug || citySlug === "nyc") {
+    const mdSlugs = getCompletedSlugs();
+    return [...new Set([...mdSlugs, ...blobSlugs])];
+  }
+  return blobSlugs;
 }
+
+// Export for API routes
+export { walkBlobPath, photoBlobPrefix };

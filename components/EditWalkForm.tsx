@@ -5,6 +5,7 @@ import PhotoUploader from "./PhotoUploader";
 
 interface EditWalkFormProps {
   slug: string;
+  citySlug: string;
   initial?: {
     date: string;
     rating: number;
@@ -16,7 +17,7 @@ interface EditWalkFormProps {
   onCancel: () => void;
 }
 
-export default function EditWalkForm({ slug, initial, onSaved, onCancel }: EditWalkFormProps) {
+export default function EditWalkForm({ slug, citySlug, initial, onSaved, onCancel }: EditWalkFormProps) {
   const [date, setDate] = useState(initial?.date || new Date().toISOString().slice(0, 10));
   const [rating, setRating] = useState(initial?.rating || 5);
   const [weather, setWeather] = useState(initial?.weather || "");
@@ -29,7 +30,7 @@ export default function EditWalkForm({ slug, initial, onSaved, onCancel }: EditW
     setSaving(true);
 
     try {
-      const res = await fetch(`/api/walks/${slug}`, {
+      const res = await fetch(`/api/walks/${citySlug}/${slug}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ date, rating, weather, description, photos }),
@@ -100,7 +101,7 @@ export default function EditWalkForm({ slug, initial, onSaved, onCancel }: EditW
 
       <div>
         <label className="block text-sm font-medium mb-2">Photos</label>
-        <PhotoUploader slug={slug} photos={photos} onUploaded={handlePhotoUploaded} />
+        <PhotoUploader slug={slug} citySlug={citySlug} photos={photos} onUploaded={handlePhotoUploaded} />
       </div>
 
       <div className="flex gap-3 pt-2">

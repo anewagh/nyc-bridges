@@ -1,18 +1,23 @@
-import { getAllBridges, getBridgesByRegion } from "@/lib/bridges";
+import { getAllCities, getBridgesForCity, getBridgesByRegion } from "@/lib/bridges";
 import { getAllCompletedSlugs, getWalkBySlug } from "@/lib/walks";
-import ProgressRing from "@/components/ProgressRing";
-import BridgeCard from "@/components/BridgeCard";
+import HomepageClient from "@/components/HomepageClient";
 
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
-  const bridges = getAllBridges();
-  const completedSlugs = await getAllCompletedSlugs();
-  const regions = getBridgesByRegion();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ city?: string }>;
+}) {
+  const { city: citySlug = "nyc" } = await searchParams;
+  const cities = await getAllCities();
+  const bridges = await getBridgesForCity(citySlug);
+  const regions = getBridgesByRegion(bridges);
+  const completedSlugs = await getAllCompletedSlugs(citySlug);
 
   const walkDates: Record<string, string> = {};
   for (const slug of completedSlugs) {
-    const walk = await getWalkBySlug(slug);
+    const walk = await getWalkBySlug(slug, citySlug);
     if (walk) walkDates[slug] = walk.date;
   }
 
@@ -23,52 +28,15 @@ export default async function Home() {
     .reduce((sum, b) => sum + parseMiles(b.distance), 0);
 
   return (
-    <div>
-      <section className="text-center py-10">
-        <h1 className="font-serif text-3xl font-bold tracking-tight mb-3">
-          NYC Bridge Walks
-        </h1>
-        <p className="font-serif italic text-[var(--muted)] text-lg mb-8">
-          Walking every major bridge in New York City, one crossing at a time.
-        </p>
-        <ProgressRing
-          completed={completedSlugs.length}
-          total={bridges.length}
-          completedMiles={completedMiles}
-          totalMiles={totalMiles}
-        />
-      </section>
-
-      {regions.map(({ region, bridges: regionBridges }) => {
-        const completedCount = regionBridges.filter((b) =>
-          completedSlugs.includes(b.slug)
-        ).length;
-
-        return (
-          <section key={region} className="mt-10">
-            <div className="flex items-baseline gap-3 mb-4">
-              <h2 className="font-serif text-lg font-bold">{region}</h2>
-              <span className="text-sm text-[var(--muted)]">
-                {completedCount}/{regionBridges.length}
-              </span>
-              <span className="flex-1 border-b border-dashed border-[var(--accent)] opacity-30" />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {regionBridges.map((bridge) => {
-                const isCompleted = completedSlugs.includes(bridge.slug);
-                return (
-                  <BridgeCard
-                    key={bridge.slug}
-                    bridge={bridge}
-                    completed={isCompleted}
-                    walkDate={isCompleted ? walkDates[bridge.slug] : undefined}
-                  />
-                );
-              })}
-            </div>
-          </section>
-        );
-      })}
-    </div>
+    <HomepageClient
+      cities={cities}
+      currentCity={citySlug}
+      regions={regions}
+      completedSlugs={completedSlugs}
+      walkDates={walkDates}
+      completedMiles={completedMiles}
+      totalMiles={totalMiles}
+      totalBridges={bridges.length}
+    />
   );
 }
