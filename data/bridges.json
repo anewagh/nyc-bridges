@@ -292,5 +292,19 @@
       "The original 1939 bridge was so corroded by Jamaica Bay's salt water and air that full replacement ($905M) was cheaper than repairs",
       "Crosses Jamaica Bay Wildlife Refuge, one of the best birdwatching spots in NYC — you can watch JFK planes take off at eye level from the walkway"
     ]
+  },
+  {
+    "slug": "verrazzano-narrows-bridge",
+    "name": "Verrazzano-Narrows Bridge",
+    "from": "Brooklyn (Bay Ridge)",
+    "to": "Staten Island (Fort Wadsworth)",
+    "distance": "1.6 mi",
+    "yearBuilt": 1964,
+    "region": "The Narrows",
+    "funFacts": [
+      "It was the longest suspension bridge in the world when it opened in 1964, holding the record for 17 years until the Humber Bridge in England surpassed it in 1981",
+      "The starting point of the NYC Marathon — 50,000+ runners cross it every November in one of the most iconic race starts in the world",
+      "Named after Giovanni da Verrazzano, the first European explorer to enter New York Harbor in 1524 — his name was misspelled with one 'z' on the bridge until it was officially corrected in 2018"
+    ]
   }
 ]
