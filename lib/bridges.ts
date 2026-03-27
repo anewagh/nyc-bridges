@@ -153,6 +153,29 @@ export async function addBridgeToCity(
   return newBridge;
 }
 
+export async function deleteBridgeFromCity(
+  citySlug: string,
+  bridgeSlug: string
+): Promise<boolean> {
+  if (citySlug === "nyc") return false;
+  const bridges = await getBridgesForCity(citySlug);
+  const filtered = bridges.filter((b) => b.slug !== bridgeSlug);
+  if (filtered.length === bridges.length) return false;
+
+  const oldBlobUrl = await findBlobUrl(`cities/${citySlug}/bridges.json`);
+  if (oldBlobUrl) await del(oldBlobUrl);
+
+  if (filtered.length > 0) {
+    await put(`cities/${citySlug}/bridges.json`, JSON.stringify(filtered), {
+      access: "private",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/json",
+    });
+  }
+  return true;
+}
+
 export function getBridgeBySlugAndCity(
   citySlug: string,
   bridges: Bridge[],

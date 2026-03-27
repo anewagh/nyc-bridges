@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getBridgesForCity, addBridgeToCity } from "@/lib/bridges";
+import { getBridgesForCity, addBridgeToCity, deleteBridgeFromCity } from "@/lib/bridges";
 
 export async function GET(
   _request: NextRequest,
@@ -41,6 +41,27 @@ export async function POST(
     });
 
     return NextResponse.json(bridge);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ citySlug: string }> }
+) {
+  try {
+    const { citySlug } = await params;
+    const { bridgeSlug } = await request.json();
+    if (!bridgeSlug) {
+      return NextResponse.json({ error: "bridgeSlug is required" }, { status: 400 });
+    }
+    const deleted = await deleteBridgeFromCity(citySlug, bridgeSlug);
+    if (!deleted) {
+      return NextResponse.json({ error: "Bridge not found or cannot be deleted" }, { status: 404 });
+    }
+    return NextResponse.json({ deleted: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });

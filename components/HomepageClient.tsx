@@ -7,6 +7,7 @@ import AddCityModal from "./AddCityModal";
 import AddBridgeModal from "./AddBridgeModal";
 import ProgressRing from "./ProgressRing";
 import BridgeCard from "./BridgeCard";
+import DeleteCityButton from "./DeleteCityButton";
 
 interface RegionGroup {
   region: string;
@@ -49,9 +50,14 @@ export default function HomepageClient({
       />
 
       <section className="text-center py-10">
-        <h1 className="font-serif text-3xl font-bold tracking-tight mb-3">
-          {cityName} Bridge Walks
-        </h1>
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <h1 className="font-serif text-3xl font-bold tracking-tight">
+            {cityName} Bridge Walks
+          </h1>
+          {currentCity !== "nyc" && currentCityData && !currentCityData.isBuiltIn && (
+            <DeleteCityButton citySlug={currentCity} cityName={cityName} />
+          )}
+        </div>
         <p className="font-serif italic text-[var(--muted)] text-lg mb-8">
           taking the scenic route, looking down on cities & people
         </p>

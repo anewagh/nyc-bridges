@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getBridgesForCity, getBridgeBySlugAndCity, getBridgeBySlug } from "@/lib/bridges";
 import { getWalkBySlug, getWalkDataFromBlob } from "@/lib/walks";
 import BridgeWalkClient from "@/components/BridgeWalkClient";
+import DeleteBridgeButton from "@/components/DeleteBridgeButton";
 
 export const dynamic = "force-dynamic";
 
@@ -158,6 +159,12 @@ export default async function BridgePage({
         citySlug={citySlug}
         walk={walkWithDescription}
       />
+
+      {citySlug !== "nyc" && (
+        <div className="mt-12 pt-6 border-t border-[var(--card-border)]">
+          <DeleteBridgeButton citySlug={citySlug} bridgeSlug={bridgeSlug} />
+        </div>
+      )}
     </div>
   );
 }
