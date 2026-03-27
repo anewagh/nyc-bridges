@@ -1,5 +1,5 @@
 import bridgesData from "@/data/bridges.json";
-import { list, put } from "@vercel/blob";
+import { del, list, put } from "@vercel/blob";
 import type { City, Bridge } from "./types";
 
 export type { Bridge } from "./types";
@@ -76,6 +76,29 @@ export async function addCity(name: string): Promise<City> {
   }
 
   return city;
+}
+
+export async function deleteCity(slug: string): Promise<boolean> {
+  if (slug === "nyc") return false; // NYC is read-only
+  const existing = await getUserCities();
+  const filtered = existing.filter((c) => c.slug !== slug);
+  if (filtered.length === existing.length) return false;
+
+  // Update cities index
+  await put("cities/index.json", JSON.stringify(filtered), {
+    access: "private",
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    contentType: "application/json",
+  });
+
+  // Delete city's bridges blob
+  const bridgesBlobUrl = await findBlobUrl(`cities/${slug}/bridges.json`);
+  if (bridgesBlobUrl) {
+    await del(bridgesBlobUrl);
+  }
+
+  return true;
 }
 
 // --- Bridge functions ---
