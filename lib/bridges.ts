@@ -84,13 +84,21 @@ export async function deleteCity(slug: string): Promise<boolean> {
   const filtered = existing.filter((c) => c.slug !== slug);
   if (filtered.length === existing.length) return false;
 
-  // Update cities index
-  await put("cities/index.json", JSON.stringify(filtered), {
-    access: "private",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    contentType: "application/json",
-  });
+  // Delete old cities index blob first
+  const oldIndexUrl = await findBlobUrl("cities/index.json");
+  if (oldIndexUrl) {
+    await del(oldIndexUrl);
+  }
+
+  // Write updated cities index
+  if (filtered.length > 0) {
+    await put("cities/index.json", JSON.stringify(filtered), {
+      access: "private",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/json",
+    });
+  }
 
   // Delete city's bridges blob
   const bridgesBlobUrl = await findBlobUrl(`cities/${slug}/bridges.json`);
