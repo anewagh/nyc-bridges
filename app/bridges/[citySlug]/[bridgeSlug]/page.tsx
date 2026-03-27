@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { getBridgesForCity, getBridgeBySlugAndCity } from "@/lib/bridges";
+import { getBridgesForCity, getBridgeBySlugAndCity, getBridgeBySlug } from "@/lib/bridges";
 import { getWalkBySlug, getWalkDataFromBlob } from "@/lib/walks";
 import BridgeWalkClient from "@/components/BridgeWalkClient";
 
@@ -12,6 +12,13 @@ export async function generateMetadata({
   params: Promise<{ citySlug: string; bridgeSlug: string }>;
 }) {
   const { citySlug, bridgeSlug } = await params;
+
+  // Legacy redirect: /bridges/brooklyn-bridge/anything → check if citySlug is an NYC bridge
+  const nycBridge = getBridgeBySlug(citySlug);
+  if (nycBridge) {
+    return { title: `${nycBridge.name} | Bridge Walks` };
+  }
+
   const bridges = await getBridgesForCity(citySlug);
   const bridge = getBridgeBySlugAndCity(citySlug, bridges, bridgeSlug);
   return {
@@ -27,6 +34,15 @@ export default async function BridgePage({
   params: Promise<{ citySlug: string; bridgeSlug: string }>;
 }) {
   const { citySlug, bridgeSlug } = await params;
+
+  // Legacy redirect: if citySlug is actually an NYC bridge slug (e.g., /bridges/brooklyn-bridge/somethingelse)
+  // This handles old bookmarks. The old URL /bridges/brooklyn-bridge won't match this route (needs 2 segments),
+  // so this mainly catches edge cases.
+  const nycBridge = getBridgeBySlug(citySlug);
+  if (nycBridge) {
+    redirect(`/bridges/nyc/${citySlug}`);
+  }
+
   const bridges = await getBridgesForCity(citySlug);
   const bridge = getBridgeBySlugAndCity(citySlug, bridges, bridgeSlug);
   if (!bridge) notFound();
