@@ -43,7 +43,9 @@ export default function ProgressRing({ completed, total, completedMiles, totalMi
       </div>
       <div className="flex gap-6 text-sm text-[var(--muted)]">
         <span><strong className="text-[var(--foreground)]">{completed}</strong> of {total} bridges</span>
-        <span><strong className="text-[var(--foreground)]">{completedMiles.toFixed(1)}</strong> of {totalMiles.toFixed(1)} mi</span>
+        {totalMiles > 0 && (
+          <span><strong className="text-[var(--foreground)]">{completedMiles.toFixed(1)}</strong> of {totalMiles.toFixed(1)} mi</span>
+        )}
       </div>
     </div>
   );

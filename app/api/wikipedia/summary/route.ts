@@ -16,24 +16,37 @@ function parseYearBuilt(text: string): number | null {
 }
 
 function parseDistance(text: string): string | null {
-  // Try miles first
-  const milesMatch = text.match(/(\d+[,.]?\d*)\s*(?:miles?|mi)\b/i);
-  if (milesMatch) return `${milesMatch[1]} mi`;
+  // Try "X km (Y mi)" pattern first (common in non-US Wikipedia articles)
+  const kmMiMatch = text.match(/([\d,.]+)\s*km\s*\(([\d,.]+)\s*mi\)/i);
+  if (kmMiMatch) return `${kmMiMatch[2]} mi`;
+
+  // Try miles in length context
+  const milesInLengthMatch = text.match(/([\d,.]+)\s*(?:miles?|mi)\s*(?:in length|long|total)/i);
+  if (milesInLengthMatch) return `${milesInLengthMatch[1].replace(/,/g, "")} mi`;
+
+  // Try general miles
+  const milesMatch = text.match(/([\d,.]+)\s*(?:miles?|mi)\b/i);
+  if (milesMatch) return `${milesMatch[1].replace(/,/g, "")} mi`;
+
+  // Try km and convert
+  const kmMatch = text.match(/([\d,.]+)\s*(?:kilometres?|kilometers?|km)\b/i);
+  if (kmMatch) {
+    const km = parseFloat(kmMatch[1].replace(/,/g, ""));
+    return `${(km * 0.621371).toFixed(1)} mi`;
+  }
 
   // Try feet and convert
-  const feetMatch = text.match(/([\d,]+)\s*(?:feet|ft|foot)\b/i);
+  const feetMatch = text.match(/([\d,]+)\s*(?:feet|ft|foot)\s*(?:in length|long|total)/i);
   if (feetMatch) {
     const feet = parseFloat(feetMatch[1].replace(/,/g, ""));
-    const miles = (feet / 5280).toFixed(1);
-    return `${miles} mi`;
+    return `${(feet / 5280).toFixed(1)} mi`;
   }
 
   // Try meters and convert
-  const metersMatch = text.match(/([\d,]+)\s*(?:metres?|meters?|m)\b/i);
+  const metersMatch = text.match(/([\d,]+)\s*(?:metres?|meters?)\s*(?:in length|long|total)/i);
   if (metersMatch) {
     const meters = parseFloat(metersMatch[1].replace(/,/g, ""));
-    const miles = (meters / 1609.34).toFixed(1);
-    return `${miles} mi`;
+    return `${(meters / 1609.34).toFixed(1)} mi`;
   }
 
   return null;
