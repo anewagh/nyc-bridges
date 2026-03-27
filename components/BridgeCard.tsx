@@ -36,8 +36,8 @@ export default function BridgeCard({ bridge, citySlug, completed, walkDate }: Br
           </div>
         </div>
         <div className="flex items-center gap-3 mt-3 text-xs text-[var(--muted)]">
-          <span>{bridge.distance}</span>
-          <span>Built {bridge.yearBuilt}</span>
+          {bridge.distance && <span>{bridge.distance}</span>}
+          {bridge.yearBuilt > 0 && <span>Built {bridge.yearBuilt}</span>}
           {completed && walkDate && (
             <span className="ml-auto text-[var(--success)] font-medium">
               {new Date(walkDate + "T12:00:00").toLocaleDateString("en-US", {

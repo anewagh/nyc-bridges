@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 
 function parseYearBuilt(text: string): number | null {
-  const match = text.match(
-    /(?:opened|built|completed|constructed|inaugurated|opened to traffic)\s+(?:in\s+)?(\d{4})/i
-  );
-  return match ? parseInt(match[1]) : null;
+  const patterns = [
+    /(?:opened|built|completed|constructed|inaugurated|opened to traffic)\s+(?:in\s+)?(?:(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+)?(\d{4})/i,
+    /(?:opened|built|completed|constructed|inaugurated|opened to traffic)\s+(?:on\s+)?(?:(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+)?(\d{4})/i,
+    /(?:since|from)\s+(\d{4})/i,
+  ];
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) return parseInt(match[1]);
+  }
+  const firstSentences = text.split(/(?<=[.!?])\s+/).slice(0, 2).join(" ");
+  const yearMatch = firstSentences.match(/\b(1[5-9]\d{2}|20[0-3]\d)\b/);
+  return yearMatch ? parseInt(yearMatch[1]) : null;
 }
 
 function parseDistance(text: string): string | null {

@@ -9,10 +9,20 @@ interface BridgeResult {
 }
 
 function parseYearBuilt(text: string): number | null {
-  const match = text.match(
-    /(?:opened|built|completed|constructed|inaugurated|opened to traffic)\s+(?:in\s+)?(\d{4})/i
-  );
-  return match ? parseInt(match[1]) : null;
+  // Try specific patterns first: "opened in 1937", "built in 1901", "completed on January 12, 1937"
+  const patterns = [
+    /(?:opened|built|completed|constructed|inaugurated|opened to traffic)\s+(?:in\s+)?(?:(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+)?(\d{4})/i,
+    /(?:opened|built|completed|constructed|inaugurated|opened to traffic)\s+(?:on\s+)?(?:(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+)?(\d{4})/i,
+    /(?:since|from)\s+(\d{4})/i,
+  ];
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) return parseInt(match[1]);
+  }
+  // Fallback: find first 4-digit year between 1500-2030 in the first 2 sentences
+  const firstSentences = text.split(/(?<=[.!?])\s+/).slice(0, 2).join(" ");
+  const yearMatch = firstSentences.match(/\b(1[5-9]\d{2}|20[0-3]\d)\b/);
+  return yearMatch ? parseInt(yearMatch[1]) : null;
 }
 
 function parseDistance(text: string): string | null {

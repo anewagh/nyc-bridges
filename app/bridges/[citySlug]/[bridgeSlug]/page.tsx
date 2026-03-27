@@ -93,10 +93,18 @@ export default async function BridgePage({
 
       <div className="flex flex-wrap gap-2 text-sm text-[var(--muted)] mb-6 pb-6 border-b border-dashed border-[var(--accent)] border-opacity-30">
         <span>{bridge.region}</span>
-        <span className="text-[var(--accent)] opacity-40">&middot;</span>
-        <span>{bridge.distance}</span>
-        <span className="text-[var(--accent)] opacity-40">&middot;</span>
-        <span>Built {bridge.yearBuilt}</span>
+        {bridge.distance && (
+          <>
+            <span className="text-[var(--accent)] opacity-40">&middot;</span>
+            <span>{bridge.distance}</span>
+          </>
+        )}
+        {bridge.yearBuilt > 0 && (
+          <>
+            <span className="text-[var(--accent)] opacity-40">&middot;</span>
+            <span>Built {bridge.yearBuilt}</span>
+          </>
+        )}
         {walk && (
           <>
             {walk.date && (
