@@ -53,7 +53,7 @@ export default function HomepageClient({
           {cityName} Bridge Walks
         </h1>
         <p className="font-serif italic text-[var(--muted)] text-lg mb-8">
-          taking the scenic route, looking down at cities & people
+          taking the scenic route, looking down on cities & people
         </p>
         <ProgressRing
           completed={completedSlugs.length}
